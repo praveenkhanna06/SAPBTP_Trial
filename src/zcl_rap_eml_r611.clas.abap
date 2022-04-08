@@ -65,28 +65,36 @@ CLASS zcl_rap_eml_r611 IMPLEMENTATION.
 *
 *     out->write( 'Update done' ).
 
-    MODIFY ENTITY zi_rap_travel_r611
-         CREATE
-            SET FIELDS WITH VALUE
-             #( (  %cid        = 'MyContentID_1'
-                     AgencyID    = '70012'
-                     CustomerID  = '14'
-                     BeginDate   = cl_abap_context_info=>get_system_date( )
-                     EndDate     = cl_abap_context_info=>get_system_date( ) + 10
-                     Description = 'I like RAP@openSAP' ) )
+*    MODIFY ENTITY zi_rap_travel_r611
+*         CREATE
+*            SET FIELDS WITH VALUE
+*             #( (  %cid        = 'MyContentID_1'
+*                     AgencyID    = '70012'
+*                     CustomerID  = '14'
+*                     BeginDate   = cl_abap_context_info=>get_system_date( )
+*                     EndDate     = cl_abap_context_info=>get_system_date( ) + 10
+*                     Description = 'I like RAP@openSAP' ) )
+*
+*         MAPPED DATA(mapped)
+*         FAILED     DATA(failed)
+*         REPORTED   DATA(reported).
+*
+*    out->write( mapped-travel ).
+*
+*    COMMIT ENTITIES
+*        RESPONSE OF zi_rap_travel_r611
+*        FAILED     DATA(failed_commit)
+*         REPORTED   DATA(reported_commit).
+*
+*    out->write( 'Create done' ).
 
-         MAPPED DATA(mapped)
-         FAILED     DATA(failed)
-         REPORTED   DATA(reported).
+    select *
+    from /dmo/flight
+    into table @data(lt_flight).
 
-    out->write( mapped-travel ).
+    out->write( lines( lt_flight ) ).
+"   out->write( lt_flight ).
 
-    COMMIT ENTITIES
-        RESPONSE OF zi_rap_travel_r611
-        FAILED     DATA(failed_commit)
-         REPORTED   DATA(reported_commit).
-
-    out->write( 'Create done' ).
 
   ENDMETHOD.
 ENDCLASS.
