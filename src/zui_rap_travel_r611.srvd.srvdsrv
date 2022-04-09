@@ -1,8 +1,8 @@
 @EndUserText.label: 'Serv Definition for Travel App'
 define service ZUI_RAP_Travel_R611 {
-  expose ZC_RAP_Travel_R611;
+  expose ZC_RAP_Travel_R611 as Travel;
   expose ZC_RAP_BOOKING_R611 as Booking;
-  expose /DMO/I_Agency as Agency;
+  expose ZCE_RAP_AGENCY_R611 as Agency;
   expose /DMO/I_Customer as Customer;
   expose /DMO/I_Flight as Flight;
   expose /DMO/I_Carrier as Carrier;

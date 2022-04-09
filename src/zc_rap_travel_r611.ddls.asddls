@@ -8,11 +8,15 @@ define root view entity ZC_RAP_Travel_R611
   key TravelUUID,
       @Search.defaultSearchElement: true
       TravelID,
-      @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Agency', element: 'AgencyID' } }]
-      @ObjectModel.text.element: ['AgencyName']
+      //valueHelp annotation changed from standard table to Custom Entity to get the Agency details from Backend ODATA Call to external system
+      //@Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Agency', element: 'AgencyID' } }]
+      @Consumption.valueHelpDefinition: [{ entity : {name: 'zce_rap_agency_R611', element: 'AgencyId' } }]
+      //Comment the Agency name annotation as Custom CDS entity dosent have alias of Name
+      //@ObjectModel.text.element: ['AgencyName']
       @Search.defaultSearchElement: true
       AgencyID,
-      _Agency.Name       as AgencyName,
+      //Also comment the Agency name as Custom CDS entity dosent have alias of Name
+      //_Agency.Name       as AgencyName,
       @Consumption.valueHelpDefinition: [{ entity: { name: '/DMO/I_Customer', element: 'CustomerID' } }]
       @ObjectModel.text.element: ['CustomerName']
       @Search.defaultSearchElement: true
@@ -35,7 +39,7 @@ define root view entity ZC_RAP_Travel_R611
       LocalLastChangedAt,
       /* Associations */
       _Agency,
-      _Booking : redirected to composition child ZC_RAP_Booking_R611,
+      _Booking : redirected to composition child ZC_RAP_BOOKING_R611,
       _Currency,
       _Customer
 }
